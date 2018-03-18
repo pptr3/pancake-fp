@@ -45,7 +45,8 @@ create table DeliveryManNotification (
      Description char(255) not null,
 	 Email char(100) not null,
 	 Status char(1) DEFAULT "0",
-     constraint IDNotificationD primary key (IDDeliveryManNotification));
+     constraint IDNotificationD primary key 
+(IDDeliveryManNotification));
 
 create table DeliveryMode (
      IDDeliveryMode int not null AUTO_INCREMENT,
@@ -76,7 +77,8 @@ create table ItemInOrder (
 create table ItemInRoyalPancake (
      IDRoyalPancake int not null,
      IDItem int not null,
-     constraint IDItemInRoyalPancake primary key (IDItem, IDRoyalPancake));
+     constraint IDItemInRoyalPancake primary key (IDItem, 
+IDRoyalPancake));
 
 create table OrderRoyalPancake (
      Note char(100) not null,
@@ -85,7 +87,8 @@ create table OrderRoyalPancake (
      IDOrder char(100) not null,
      IDRoyalPancake int not null,
      Amount char(100) not null,
-     constraint IDOrderRoyalPancake primary key (Note, Email, IDOrder, IDRoyalPancake));
+     constraint IDOrderRoyalPancake primary key (Note, Email, IDOrder, 
+IDRoyalPancake));
 
 create table Orders (
      Status char(100) not null,
@@ -126,7 +129,8 @@ create table Seasoning (
 create table SeasoningInItem (
      IDItem int not null,
      IDSeasoning int not null,
-     constraint IDSeasoningInRoyalPancake primary key (IDItem, IDSeasoning));
+     constraint IDSeasoningInRoyalPancake primary key (IDItem, 
+IDSeasoning));
 
 create table UserNotification (
      IDUserNotification int not null AUTO_INCREMENT,
@@ -229,3 +233,4 @@ alter table UserNotification add constraint FKR_AddOrderU
 alter table UserNotification add constraint FKR_10
      foreign key (Email)
      references Users (Email);
+
