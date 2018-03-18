@@ -3,7 +3,8 @@ Website for the order of pancakes.
 
 ### Import procedure
 
- * Make sure to have Git installed on your system and then just clone the repository by typing: `git clone https://github.com/Pptr95/PancakeFP.git`
+ * Make sure to have Git installed on your system and then just clone the repository by typing: 
+`git clone https://github.com/Pptr95/PancakeFP.git`
  * This website is linked with a phpmyadmin database, so ensure to have installed all PHP modules, or, for a quicker installation of the requirements, 
 [install](https://www.apachefriends.org/download.html) XAMPP.
  * Once installed the PHP modules (or XAMPP), start Apache Server and MySQL database.
