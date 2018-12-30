@@ -13,18 +13,18 @@ class Item{
 		$this->price = $price;
 		$this->getPhotoFromDb();
     }
-	
+
 	public function getPhotoFromDb() {
 		$conn =connect();
-		$sql = "SELECT Photo from item WHERE IDItem =".$this->id;
+		$sql = "SELECT Photo from Item WHERE IDItem =".$this->id;
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$this->photo = $row["Photo"];
-			}				
+			}
 		}
 	}
-	
+
 	public function changeAmount($change) {
 		$this->amount = $this->amount + $change;
 	}
@@ -47,9 +47,9 @@ class Item{
 		$this->amount = $amount;
 	}
 	public function printItem() {
-		echo "IDItem: ".$this->id." Nome: ".$this->name." x".$this->amount."   ".$this->price."<br/>"; 
+		echo "IDItem: ".$this->id." Nome: ".$this->name." x".$this->amount."   ".$this->price."<br/>";
 	}
-	
+
 }
 
 class Royal{
@@ -66,18 +66,18 @@ class Royal{
 		$this->price = $price;
 		$this->getPhotoFromDb();
     }
-	
+
 	public function getPhotoFromDb() {
 		$conn =connect();
-		$sql = "SELECT Photo from royalpancake WHERE IDRoyalPancake =".$this->id;
+		$sql = "SELECT Photo from RoyalPancake WHERE IDRoyalPancake =".$this->id;
 		$result = $conn->query($sql);
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$this->photo = $row["Photo"];
-			}				
+			}
 		}
 	}
-	
+
 	public function changeAmount($change) {
 		$this->amount = $this->amount + $change;
 	}
@@ -121,7 +121,7 @@ class Royal{
 		}
 	}
 	public function printItem() {
-		echo "IDItem: ".$this->id." Nome: ".$this->name." Note: ".$this->note." x".$this->amount."   ".$this->price."<br/>"; 
+		echo "IDItem: ".$this->id." Nome: ".$this->name." Note: ".$this->note." x".$this->amount."   ".$this->price."<br/>";
 	}
 }
 
@@ -129,18 +129,18 @@ class Royal{
 class ShoppingCart {
 	private $arrayItem = array();
 	private $nItem = 0;
-	
+
 	public function __construct(){
     }
-	
+
 	public function getPrice() {
 		$tot = 0;
 		for ($i=0;$i<$this->nItem; $i++) {
 			$tot += ($this->arrayItem[$i]->getPrice() * $this->arrayItem[$i]->getAmount() );
-		}		
+		}
 		return $tot;
 	}
-	
+
 	public function getArrayItem() {
 		$tmpArr = array();
 		$k = 0;
@@ -149,10 +149,10 @@ class ShoppingCart {
 				$tmpArr[$k] = $this->arrayItem[$i];
 				$k ++;
 			}
-		}		
+		}
 		return $tmpArr;
 	}
-	
+
 	public function getArrayRoyal() {
 		$tmpArr = array();
 		$k = 0;
@@ -161,10 +161,10 @@ class ShoppingCart {
 				$tmpArr[$k] = $this->arrayItem[$i];
 				$k ++;
 			}
-		}	
+		}
 		return $tmpArr;
 	}
-	
+
 	public function addItem($item, $amount, $note) {
 		if ($item instanceof Item || $item instanceof Royal) {
 			if($this->contains($item, $note) == false) {
@@ -177,7 +177,7 @@ class ShoppingCart {
 			$this->changeItemAmount($item, $amount, $note);
 		}
 	}
-	
+
 	public function contains($item, $note) {
 		for ($i=0;$i<$this->nItem; $i++) {
 			if((($item instanceof Item && $this->arrayItem[$i] instanceof Item) || ($item instanceof Royal && $this->arrayItem[$i] instanceof Royal && $this->arrayItem[$i]->getNote() == $note))
@@ -187,14 +187,14 @@ class ShoppingCart {
 		}
 		return false;
 	}
-	
+
 	public function printItems() {
 		for ($i=0;$i<$this->nItem; $i++) {
 			echo $i;
 			$this->arrayItem[$i]->printItem();
 		}
 	}
-	
+
 	public function changeItemAmount($item, $amount, $note) {
 		for ($i=0;$i<$this->nItem; $i++) {
 			if((($item instanceof Item && $this->arrayItem[$i] instanceof Item) || ($item instanceof Royal && $this->arrayItem[$i] instanceof Royal && $this->arrayItem[$i]->getNote() == $note))
@@ -206,7 +206,7 @@ class ShoppingCart {
 			}
 		}
 	}
-	
+
 	public function setItemAmount($item, $amount, $note) {
 		for ($i=0;$i<$this->nItem; $i++) {
 			if((($item instanceof Item && $this->arrayItem[$i] instanceof Item) || ($item instanceof Royal && $this->arrayItem[$i] instanceof Royal && $this->arrayItem[$i]->getNote() == $note))
@@ -218,7 +218,7 @@ class ShoppingCart {
 			}
 		}
 	}
-	
+
 	public function positionOfElement($item, $note) {
 		$i=0;
 		while($i<$this->nItem) {
@@ -230,7 +230,7 @@ class ShoppingCart {
 		}
 		return -1;
 	}
-	
+
 	public function deleteItem($item, $note) {
 		for ($i=0;$i<$this->nItem; $i++) {
 			if((($item instanceof Item && $this->arrayItem[$i] instanceof Item) || ($item instanceof Royal && $this->arrayItem[$i] instanceof Royal && $this->arrayItem[$i]->getNote() == $note))
@@ -238,23 +238,23 @@ class ShoppingCart {
 				//array_splice($this->arrayItem, $this->positionOfElement($item), $this->positionOfElement($item));
 				unset($this->arrayItem[$this->positionOfElement($item, $note)]);
 				$this->arrayItem = array_values($this->arrayItem);
-				$this->nItem --;					
+				$this->nItem --;
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public function changeItemNotes($item, $oldNote, $newNote) { //chiamo questo da online
 		$this->changeItemAmount($item, -1, $oldNote);
 		$this->addItem($item, 1, $newNote);
-	}	
-	
+	}
+
 	public function moveToDb($usrEmail) {
 		$this->moveItemToDb($usrEmail);
 		unset($this->arrayItem);
 	}
-	
+
 	public function moveItemToDb($usrEmail) {
 		for ($i=0;$i<$this->nItem; $i++) {
 			if($this->arrayItem[$i] instanceof Item) {
@@ -264,7 +264,7 @@ class ShoppingCart {
 			}
 		}
 	}
-	
+
 }
 
 	function searchForActiveOrder($email, $idItem, $amount) {
@@ -277,26 +277,26 @@ class ShoppingCart {
 			$status= "0";
 			$sql = "INSERT INTO Orders (Email, IDOrder, Status) VALUES ('".$email."','".$idOrder."','".$status."')";
 			$conn->query($sql);
-			
+
 		}
-		$sql2 = "SELECT * FROM Iteminorder WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDItem = ".$idItem;
+		$sql2 = "SELECT * FROM ItemInOrder WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDItem = ".$idItem;
 		$result2 = $conn->query($sql2);
 		if($result2->num_rows > 0)	{
 			while($row2 = $result2->fetch_assoc()) {
 				$newAmount = $row2["Amount"] + $amount;
-				$sql3 = "UPDATE Iteminorder SET Amount = ".$newAmount." WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDItem = ".$idItem;
+				$sql3 = "UPDATE ItemInOrder SET Amount = ".$newAmount." WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDItem = ".$idItem;
 				$conn->query($sql3);
 			}
 		} else {
-			$sql3 = "INSERT INTO Iteminorder (IDItem, Email, IDOrder, Amount)
+			$sql3 = "INSERT INTO ItemInOrder (IDItem, Email, IDOrder, Amount)
 					VALUES ('".$idItem."', '".$email."', '".$idUse."', '".$amount."')";
 			$conn->query($sql3);
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	function searchForActiveOrderRoyal($email, $idItem, $amount, $note) {
 		$idO = getOrderOfUserNotBought($email);
 		$idUse = $idO;
@@ -309,119 +309,119 @@ class ShoppingCart {
 			$conn->query($sql);
 		}
 
-		$sql2 = "SELECT * FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDRoyalPancake = ".$idItem." AND Note =".$note;
+		$sql2 = "SELECT * FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDRoyalPancake = ".$idItem." AND Note =".$note;
 		$result2 = $conn->query($sql2);
 		if($result2->num_rows > 0)	{
 			while($row2 = $result2->fetch_assoc()) {
 				$newAmount = $row2["Amount"] + $amount;
-				$sql3 = "UPDATE orderroyalpancake SET Amount = ".$newAmount." WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDRoyalPancake = ".$idItem." AND Note=".$note;
+				$sql3 = "UPDATE OrderRoyalPancake SET Amount = ".$newAmount." WHERE Email = '".$email."' AND IDOrder = ".$idUse." AND IDRoyalPancake = ".$idItem." AND Note=".$note;
 				$conn->query($sql3);
 			}
 		} else {
 			$totPrice = updateRoyalPrice($idItem, $note);
-			$sql3 = "INSERT INTO orderroyalpancake (IDRoyalPancake, Email, IDOrder, Amount, Note,Price)
+			$sql3 = "INSERT INTO OrderRoyalPancake (IDRoyalPancake, Email, IDOrder, Amount, Note,Price)
 				VALUES ('".$idItem."', '".$email."', '".$idUse."', '".$amount."', '".$note."', '".$totPrice."')";
 			$conn->query($sql3);
 		}
 	}
-	
+
 	function updateOrderTime($email, $datetime) {
 		$conn =connect();
 		$sql = "SELECT IDOrder from Orders WHERE Status =0 AND Email = '".$email."'";
-		
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
 				$idOrder = $row["IDOrder"];
-				$sql2 = "UPDATE orders SET DateTime = '".$datetime."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
+				$sql2 = "UPDATE Orders SET DateTime = '".$datetime."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
 				$conn->query($sql2);
 			}
 		}
 	}
-	
+
 	function insertAddressInOrder($email, $address, $cap) {
 		$conn =connect();
 		$sql = "SELECT IDOrder from Orders WHERE Status =0 AND Email = '".$email."'";
-		
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
 				$idOrder = $row["IDOrder"];
-				
-				$sql2 = "INSERT INTO deliverymode (Address, CAP) VALUES ('".$address."', '".$cap."')";
+
+				$sql2 = "INSERT INTO DeliveryMode (Address, CAP) VALUES ('".$address."', '".$cap."')";
 				$conn->query($sql2);
-				
+
 				$sql3 = "SELECT MAX(IDDeliveryMode) AS max FROM deliverymode";
 				$result2 = $conn->query($sql3);
 				if($result2->num_rows > 0)	{
 					while($row2 = $result2->fetch_assoc()) {
 						$idDelivery= $row2["max"];
-						$sql4 = "UPDATE orders SET IDDeliveryMode = '".$idDelivery."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
+						$sql4 = "UPDATE Orders SET IDDeliveryMode = '".$idDelivery."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
 						$conn->query($sql4);
 					}
-				}					
-				
+				}
+
 			}
 		}
 	}
 	function insertGeolocalizationInOrder($email, $latitude, $longitude) {
 		$conn =connect();
 		$sql = "SELECT IDOrder from Orders WHERE Status =0 AND Email = '".$email."'";
-		
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
 				$idOrder = $row["IDOrder"];
-				
-				$sql2 = "INSERT INTO deliverymode (Latitude, Longitude) VALUES ('".$latitude."', '".$longitude."')";
+
+				$sql2 = "INSERT INTO DeliveryMode (Latitude, Longitude) VALUES ('".$latitude."', '".$longitude."')";
 				$conn->query($sql2);
-				
+
 				$sql3 = "SELECT MAX(IDDeliveryMode) AS max FROM deliverymode";
 				$result2 = $conn->query($sql3);
 				if($result2->num_rows > 0)	{
 					while($row2 = $result2->fetch_assoc()) {
 						$idDelivery= $row2["max"];
-						$sql4 = "UPDATE orders SET IDDeliveryMode = '".$idDelivery."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
+						$sql4 = "UPDATE Orders SET IDDeliveryMode = '".$idDelivery."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
 						$conn->query($sql4);
 					}
-				}					
-				
+				}
+
 			}
 		}
 	}
-	
+
 	function addCardInfos($email, $cardNumber, $cardOwner, $expireDate) {
 		$conn =connect();
 		$sql = "SELECT IDOrder from Orders WHERE Status =0 AND Email = '".$email."'";
-		
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
 				$idOrder = $row["IDOrder"];
-				$sql2 = "UPDATE orders SET Status=1, CardNumber = '".$cardNumber."', CardOwner = '".$cardOwner."', ExpireDate = '".$expireDate."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
+				$sql2 = "UPDATE Orders SET Status=1, CardNumber = '".$cardNumber."', CardOwner = '".$cardOwner."', ExpireDate = '".$expireDate."' WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
 				$conn->query($sql2);
 			}
 		}
 	}
-	
+
 	function setOrderAsBought($email) {
 		$conn =connect();
 		$sql = "SELECT IDOrder from Orders WHERE Status =0 AND Email = '".$email."'";
-		
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
 				$idOrder = $row["IDOrder"];
-				$sql2 = "UPDATE orders SET Status = 1 WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
+				$sql2 = "UPDATE OrderRoyalPancake SET Status = 1 WHERE Email = '".$email."' AND IDOrder = ".$idOrder;
 				$conn->query($sql2);
 			}
 		}
 	}
-	
+
 	function getItemInOrder($email) {
 		$conn =connect();
 		$sql = "SELECT IDOrder from Orders WHERE Status =0 AND Email = '".$email."'";
-		
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
@@ -433,27 +433,27 @@ class ShoppingCart {
 		}
 		return $result;
 	}
-	
+
 	function getRoyalInOrder($email) {
 		$conn =connect();
 		$sql = "SELECT IDOrder from Orders WHERE Status =0 AND Email = '".$email."'";
-		
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
 				$idOrder = $row["IDOrder"];
-				$sql2 = "SELECT * FROM orderroyalpancake WHERE IDOrder = ".$idOrder;
+				$sql2 = "SELECT * FROM OrderRoyalPancake WHERE IDOrder = ".$idOrder;
 				$result2 = $conn->query($sql2);
 				return $result2;
 			}
 		}
 		return $result;
 	}
-	
+
 	function getNextIdOrderOfUser($email) {
 		$conn =connect();
-		$sql = "SELECT MAX(IDOrder) as max FROM orders";
-		
+		$sql = "SELECT MAX(IDOrder) as max FROM Orders";
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
@@ -463,11 +463,11 @@ class ShoppingCart {
 		}
 		return "1";
 	}
-	
+
 	function getOrderOfUserNotBought($email) {
 		$conn =connect();
-		$sql = "SELECT IDOrder FROM orders WHERE Email = '".$email."' AND Status=0";
-		
+		$sql = "SELECT IDOrder FROM Orders WHERE Email = '".$email."' AND Status=0";
+
 		$result = $conn->query($sql);
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
@@ -477,55 +477,55 @@ class ShoppingCart {
 		}
 		return "-1";
 	}
-	
+
 	function updateRoyalQuantityInOrder($email, $item, $amount) {
 		$conn =connect();
 		$idOrd= getOrderOfUserNotBought($email);
 		if($amount > 0) {
-			$sql = "UPDATE orderroyalpancake SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."'";
+			$sql = "UPDATE OrderRoyalPancake SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."'";
 			$conn->query($sql);
 		} else {
-			$sql2 = "DELETE FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."'";
+			$sql2 = "DELETE FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."'";
 			$conn->query($sql2);
-			$sql3 = "SELECT * FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+			$sql3 = "SELECT * FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 			$result = $conn->query($sql3);
 			if($result->num_rows <= 0)	{
-				$sql4 = "DELETE FROM orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+				$sql4 = "DELETE FROM Orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 				$conn->query($sql4);
 				return 1;
 			}
 		}
 		return 0;
 	}
-	
+
 	function updateQuantityInOrder($email, $item, $amount) {
 		$conn =connect();
 		$idOrd= getOrderOfUserNotBought($email);
 		if($amount > 0) {
-			$sql = "UPDATE iteminorder SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDItem = '".$item."'";
+			$sql = "UPDATE ItemInOrder SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDItem = '".$item."'";
 			$conn->query($sql);
 		} else {
-			$sql2 = "DELETE FROM iteminorder WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDItem = '".$item."'";
+			$sql2 = "DELETE FROM ItemInOrder WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDItem = '".$item."'";
 			$conn->query($sql2);
-			$sql3 = "SELECT * FROM iteminorder WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+			$sql3 = "SELECT * FROM ItemInOrder WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 			$result = $conn->query($sql3);
 			if($result->num_rows <= 0)	{
-				$sql4 = "DELETE FROM orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+				$sql4 = "DELETE FROM Orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 				$conn->query($sql4);
 				return 1;
 			}
 		}
 		return 0;
 	}
-	
+
 	function getRoyalPrice($royal, $pank, $cof, $drink) {
 		$conn =connect();
-		$sql = "SELECT IDItem from iteminroyalpancake WHERE IDRoyalPancake =".$royal;
+		$sql = "SELECT IDItem from ItemInRoyalPancake WHERE IDRoyalPancake =".$royal;
 		$result = $conn->query($sql);
 		$price = 0;
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$sql2 = "SELECT * from item WHERE IDItem =".$row["IDItem"];
+				$sql2 = "SELECT * from Item WHERE IDItem =".$row["IDItem"];
 				$result2 = $conn->query($sql2);
 				if($result2->num_rows > 0) {
 					while($row2 = $result2->fetch_assoc()) {
@@ -544,15 +544,15 @@ class ShoppingCart {
 		}
 		return $price;
 	}
-	
+
 	function getRemainingItem($royal, $pank, $cof, $drink) { //TODO
 		$conn =connect();
-		$sql = "SELECT IDItem from iteminroyalpancake WHERE IDRoyalPancake =".$royal;
+		$sql = "SELECT IDItem from ItemInRoyalPancake WHERE IDRoyalPancake =".$royal;
 		$result = $conn->query($sql);
 		$price = 0;
 		if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$sql2 = "SELECT * from item WHERE IDItem =".$row["IDItem"];
+				$sql2 = "SELECT * from Item WHERE IDItem =".$row["IDItem"];
 				$result2 = $conn->query($sql2);
 				if($result2->num_rows > 0) {
 					while($row2 = $result2->fetch_assoc()) {
@@ -571,19 +571,19 @@ class ShoppingCart {
 		}
 		return $price;
 	}
-	
+
 	function getItemInRoyal($royal) {
 		$conn =connect();
-		$sql = "SELECT IDItem from iteminroyalpancake WHERE IDRoyalPancake =".$royal;
+		$sql = "SELECT IDItem from ItemInRoyalPancake WHERE IDRoyalPancake =".$royal;
 		$result = $conn->query($sql);
-		return $result;		
+		return $result;
 	}
-	
+
 	function changeItemNotes($royal, $user, $oldNote, $newNote) { //chiamo questo da online
 		updateRoyalInOrder($user, $royal, $newNote, 1);
 		updateRoyalInOrder($user, $royal, $oldNote, -1);
 	}
-	
+
 	function updateRoyalInOrder($email, $item, $note, $change) {
 		$conn =connect();
 		$idOrd= getOrderOfUserNotBought($email);
@@ -591,34 +591,34 @@ class ShoppingCart {
 		$amount=$amount+$change;
 		if($amount > 0) {
 			if(getRoyalNoteAmount($email, $item, $note) > 0) {
-			
-			$sql = "UPDATE orderroyalpancake SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
+
+			$sql = "UPDATE OrderRoyalPancake SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
 				$conn->query($sql);
 			} else {
 				$totPrice = updateRoyalPrice($item, $note);
-				$sql = "INSERT INTO orderroyalpancake (Note,Price,Email,IDOrder,IDRoyalPancake,Amount) VALUES ('".$note."', '".$totPrice."', '".$email."', '".$idOrd."', '".$item."', '1')";
+				$sql = "INSERT INTO OrderRoyalPancake (Note,Price,Email,IDOrder,IDRoyalPancake,Amount) VALUES ('".$note."', '".$totPrice."', '".$email."', '".$idOrd."', '".$item."', '1')";
 				$conn->query($sql);
 			}
-			
+
 		} else {
-			$sql2 = "DELETE FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
+			$sql2 = "DELETE FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
 			$conn->query($sql2);
-			$sql3 = "SELECT * FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+			$sql3 = "SELECT * FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 			$result = $conn->query($sql3);
 			if($result->num_rows < 1)	{
-				$sql4 = "DELETE FROM orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+				$sql4 = "DELETE FROM Orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 				$conn->query($sql4);
 				return 1;
 			}
 		}
 		return 0;
 	}
-	
+
 	function getRoyalNoteAmount($email, $item, $note) {
 		$conn =connect();
 		$idOrd= getOrderOfUserNotBought($email);
 		//SELECT Amount FROM orderroyalpancake WHERE Email = 'ef@gmail.com' AND IDRoyalPancake = '1' AND IDOrder = '3' AND Note='101';
-		$sql = "SELECT Amount FROM orderroyalpancake WHERE Email = '".$email."' AND IDRoyalPancake = ".$item." AND IDOrder = '".$idOrd."' AND Note= '".$note."'";
+		$sql = "SELECT Amount OrderRoyalPancake OrderRoyalPancake WHERE Email = '".$email."' AND IDRoyalPancake = ".$item." AND IDOrder = '".$idOrd."' AND Note= '".$note."'";
 		$result = $conn->query($sql);
 		if($result->num_rows >= 0)	{
 			while($row = $result->fetch_assoc()) {
@@ -627,37 +627,37 @@ class ShoppingCart {
 		}
 		return 0;
 	}
-	
+
 	function updateRoyalInOrderAmount($email, $item, $note, $amount) {
 		$conn =connect();
 		$idOrd= getOrderOfUserNotBought($email);
 		if($amount > 0) {
-			$sql = "UPDATE orderroyalpancake SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
+			$sql = "UPDATE OrderRoyalPancake SET Amount = '".$amount."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
 				$conn->query($sql);
-			
+
 		} else {
-			$sql2 = "DELETE FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
+			$sql2 = "DELETE FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."' AND IDRoyalPancake = '".$item."' AND Note= '".$note."'";
 			$conn->query($sql2);
-			$sql3 = "SELECT * FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+			$sql3 = "SELECT * FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 			$result = $conn->query($sql3);
 			if($result->num_rows < 1)	{
-				$sql4 = "DELETE FROM orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+				$sql4 = "DELETE FROM Orders WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 				$conn->query($sql4);
 				return 1;
 			}
 		}
 		return 0;
 	}
-	
+
 	function updateRoyalPrice($item, $note) {
 		$conn =connect();
 		$notes = array(substr($note, 0, 1), substr($note, 1, 1), substr($note, 2, 1) );
 		$totalPrice = 0;
-		$sql = "SELECT * FROM iteminroyalpancake WHERE IDRoyalPancake = '".$item."'";
+		$sql = "SELECT * FROM ItemInRoyalPancake WHERE IDRoyalPancake = '".$item."'";
 		$result = $conn->query($sql);
 		if($result->num_rows >= 0)	{
 			while($row = $result->fetch_assoc()) {
-				$sql2 = "SELECT Price, CategoryID FROM item WHERE IDItem = '".$row["IDItem"]."'";
+				$sql2 = "SELECT Price, CategoryID FROM Item WHERE IDItem = '".$row["IDItem"]."'";
 				$result2 = $conn->query($sql2);
 				if($result2->num_rows >= 0)	{
 					while($row2 = $result2->fetch_assoc()) {
@@ -670,45 +670,45 @@ class ShoppingCart {
 				}
 			}
 		}
-		
+
 		if ($notes[0] + $notes[1] + $notes[2] > 1) {
 			$totalPrice = ($totalPrice * 70) / 100;
 		}
-		$totalPrice = number_format((float)$totalPrice, 2, '.', ''); 
+		$totalPrice = number_format((float)$totalPrice, 2, '.', '');
 		return $totalPrice;
 	}
-	
+
 	function cartEmpty($email) {
 		$conn =connect();
 		$amounts = 0;
 		$idOrd= getOrderOfUserNotBought($email);
-		$sql = "SELECT * FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+		$sql = "SELECT * FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 		$result = $conn->query($sql);
 		$amounts += $result->num_rows;
-		
-		$sql2 = "SELECT * FROM iteminorder WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+
+		$sql2 = "SELECT * FROM ItemInOrder WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 		$result2 = $conn->query($sql2);
 		$amounts += $result2->num_rows;
 		return $amounts;
 	}
-	
+
 	function itemOwned( $note, $categoryItem) {
 		return substr($note, $categoryItem - 1, 1);
 	}
 	function sendNotification($email) {
 		$conn =connect();
-		$sql = "SELECT MAX(IDOrder) AS max FROM orders WHERE Email = '".$email."'";
+		$sql = "SELECT MAX(IDOrder) AS max FROM Orders WHERE Email = '".$email."'";
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
 		$title = "There's a new Order!!";
 		$description = "A new order has to be prepared.";
-		$sql2 = 'INSERT INTO adminnotification(Title,Description,Email,IDOrder) VALUES ("'.$title.'", "'.$description.'", "'.$email.'", "'.$row["max"].'");';
+		$sql2 = 'INSERT INTO AdminNotification(Title,Description,Email,IDOrder) VALUES ("'.$title.'", "'.$description.'", "'.$email.'", "'.$row["max"].'");';
 		$conn->query($sql2);
 }
 
 function isStudent($email) {
 	$conn =connect();
-	$sql = "SELECT IsStudent FROM users WHERE Email = '".$email."'";
+	$sql = "SELECT IsStudent FROM Users WHERE Email = '".$email."'";
 		$result = $conn->query($sql);
 		if($result->num_rows >= 0)	{
 			while($row = $result->fetch_assoc()) {
@@ -722,14 +722,14 @@ function getTotalPrice($email) {
 		$conn =connect();
 		$idOrd= getOrderOfUserNotBought($email);
 		$tot = 0;
-		$sql = "SELECT * FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+		$sql = "SELECT * FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 		$result = $conn->query($sql);
 		if($result->num_rows >= 0)	{
 			while($row = $result->fetch_assoc()) {
 				$tot += $row["Amount"] *  $row["Price"];
 			}
 		}
-		$sql2 = "SELECT Price, Amount FROM item i, iteminorder io WHERE i.IDItem=io.IDItem AND Email = '".$email."' AND IDOrder = '".$idOrd."'";
+		$sql2 = "SELECT Price, Amount FROM Item i, ItemInOrder io WHERE i.IDItem=io.IDItem AND Email = '".$email."' AND IDOrder = '".$idOrd."'";
 		$result2 = $conn->query($sql2);
 		if($result2->num_rows >= 0)	{
 			while($row2 = $result2->fetch_assoc()) {
@@ -747,14 +747,14 @@ function getFullPriceNotStudent($email) {
 		$conn =connect();
 		$idOrd= getOrderOfUserNotBought($email);
 		$tot = 0;
-		$sql = "SELECT * FROM orderroyalpancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+		$sql = "SELECT * FROM OrderRoyalPancake WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 		$result = $conn->query($sql);
 		if($result->num_rows >= 0)	{
 			while($row = $result->fetch_assoc()) {
 				$tot += $row["Amount"] *  $row["Price"];
 			}
 		}
-		$sql2 = "SELECT Price, Amount FROM item i, iteminorder io WHERE i.IDItem=io.IDItem AND Email = '".$email."' AND IDOrder = '".$idOrd."'";
+		$sql2 = "SELECT Price, Amount FROM iIem i, ItemInOrder io WHERE i.IDItem=io.IDItem AND Email = '".$email."' AND IDOrder = '".$idOrd."'";
 		$result2 = $conn->query($sql2);
 		if($result2->num_rows >= 0)	{
 			while($row2 = $result2->fetch_assoc()) {
@@ -768,41 +768,41 @@ function updateOrderTotalPrice($email) {
 		$conn =connect();
 		$tot = getTotalPrice($email);
 		$idOrd= getOrderOfUserNotBought($email);
-		$sql = "UPDATE orders SET TotalPrice = '".$tot."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
+		$sql = "UPDATE Orders SET TotalPrice = '".$tot."' WHERE Email = '".$email."' AND IDOrder = '".$idOrd."'";
 		$conn->query($sql);
 }
 
 function getCategoryItems() {
 	$conn =connect();
-		$sql = "SELECT * FROM categoryitem ORDER BY CategoryID";
+		$sql = "SELECT * FROM CategoryItem ORDER BY CategoryID";
 		$result = $conn->query($sql);
 		return $result;
 }
 
 function getUnderCategoryItems($categoryID) {
 	$conn =connect();
-	$sql = "SELECT DISTINCT i.UnderCategoryID, UnderCategoryName FROM item i, undercategoryitem ui WHERE i.UnderCategoryID = ui.UnderCategoryID AND CategoryID= '".$categoryID."'";
+	$sql = "SELECT DISTINCT i.UnderCategoryID, UnderCategoryName FROM Item i, UnderCategoryItem ui WHERE i.UnderCategoryID = ui.UnderCategoryID AND CategoryID= '".$categoryID."'";
 		$result = $conn->query($sql);
 		return $result;
 }
 
 function getRandomItems() {
 	$conn =connect();
-	$sql = "SELECT * FROM item ORDER BY RAND() LIMIT 5";
+	$sql = "SELECT * FROM Item ORDER BY RAND() LIMIT 5";
 	$result = $conn->query($sql);
 	return $result;
 }
 
 function getCategoryRoyals() {
 	$conn =connect();
-		$sql = "SELECT * FROM categoryroyalpancakes ORDER BY CategoryID";
+		$sql = "SELECT * FROM CategoryRoyalPancakes ORDER BY CategoryID";
 		$result = $conn->query($sql);
 		return $result;
 }
 
 function getSeasoningOfItem($item) {
 	$conn =connect();
-	$sql = "SELECT * FROM seasoninginitem si, seasoning s WHERE si.IDSeasoning = s.IDSeasoning AND si.IDItem = '".$item."'";
+	$sql = "SELECT * FROM SeasoningInItem si, Seasoning s WHERE si.IDSeasoning = s.IDSeasoning AND si.IDItem = '".$item."'";
 	$result = $conn->query($sql);
 	return $result;
 }

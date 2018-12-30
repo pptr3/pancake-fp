@@ -8,13 +8,13 @@ require_once 'dbConnection.php';
 require_once 'userInformationUtility.php';
 
 					$conn = connect();
-					$sql = "SELECT * FROM review ORDER BY RAND() LIMIT 3";
+					$sql = "SELECT * FROM Review ORDER BY RAND() LIMIT 3";
 $i=0;
 					$result = $conn->query($sql);
 						if($result->num_rows > 0) {
 							while($row = $result->fetch_assoc()) {
 								$i++;
-								$sql2 = "SELECT * FROM users WHERE Email = '".$row["Email"]."'";
+								$sql2 = "SELECT * FROM Users WHERE Email = '".$row["Email"]."'";
 
 								$result2 = $conn->query($sql2);
 								if($result2->num_rows > 0) {

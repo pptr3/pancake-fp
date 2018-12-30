@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 	if(isset($_POST["email"]) ){
 		$conn = connect();
-		$stmt2 = $conn->prepare("SELECT Email, Username, Password FROM admin WHERE Email=?");
+		$stmt2 = $conn->prepare("SELECT Email, Username, Password FROM Admin WHERE Email=?");
 		$emails = $_POST["email"];
 		$stmt2->bind_param("s", $emails);
 		$stmt2->execute();
@@ -25,7 +25,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			}
 		}
     
-		$stmt3 = $conn->prepare("SELECT Email, Password FROM deliveryman WHERE Email=?");
+		$stmt3 = $conn->prepare("SELECT Email, Password FROM DeliveryMan WHERE Email=?");
 		$emails = $_POST["email"];
 		$stmt3->bind_param("s", $emails);
 		$stmt3->execute();

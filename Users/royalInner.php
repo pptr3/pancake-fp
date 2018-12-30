@@ -24,7 +24,7 @@ require_once 'imagesFunctions.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require_once 'cart.php'; 
+require_once 'cart.php';
 $conn =connect();
 	if (isset($_GET["showCat"])) {
 		$category = $_GET["showCat"];
@@ -32,7 +32,7 @@ $conn =connect();
 		$category = 1;
 	}
 	//preparazione query
-	$sql = "SELECT * from royalpancake WHERE CategoryID =".$category;
+	$sql = "SELECT * from RoyalPancake WHERE CategoryID =".$category;
 	$result = $conn->query($sql);
 	if($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
@@ -40,7 +40,7 @@ $conn =connect();
 			<div id="innerCont" class="col-xs-12 col-sm-6 col-lg-4 ">
 			<p id="prz"><?php echo updateRoyalPrice($row["IDRoyalPancake"], "111"); ?></p>
 				<form action="" method="post">
-					<div id="itmListino" class="col-xs-12">	
+					<div id="itmListino" class="col-xs-12">
 						<button class="btnWithout" name="item" id="<?php echo $row["IDRoyalPancake"]; ?>" type="button" onclick="AddToCart(this,'<?php echo $row["IDRoyalPancake"]; ?>','<?php echo $row["RoyalName"]; ?>','<?php echo updateRoyalPrice($row["IDRoyalPancake"], "111"); ?>','1', '1')">
 							<img class="frame" alt="<?php echo $row["RoyalName"];?>" id="idImg<?php echo $row["IDRoyalPancake"]; ?>" height="60" src="<?php echo htmlspecialchars($row["Photo"]) ?>"/>
 							<p><?php echo $row["RoyalName"]; ?></p>
@@ -49,7 +49,7 @@ $conn =connect();
 					<div id="infListino" class="col-xs-12">
 						<button class="btnWithout" id="<?php echo $row["RoyalName"]; ?>" type="button" onclick="popup('<?php echo $row["RoyalName"]; ?>', '<?php echo $row["CategoryID"]; ?>')">
 							View information
-						</button>	
+						</button>
 					</div>
 				</form>
 			</div>

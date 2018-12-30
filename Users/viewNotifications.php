@@ -15,7 +15,7 @@ if (session_status() == PHP_SESSION_NONE) {
 <link rel="stylesheet" type="text/css" title="stylesheet" href="style.css">
 </head>
 <body>
- 
+
 	  <div id="bodyContent" class="container">
 	  <?php
 if (session_status() == PHP_SESSION_NONE) {
@@ -24,13 +24,13 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once 'dbConnection.php';
 
 $conn =connect();
-$query_sql="SELECT * FROM usernotification WHERE Email = '".$_SESSION['user']["email"]."'";
+$query_sql="SELECT * FROM UserNotification WHERE Email = '".$_SESSION['user']["email"]."'";
   			$result = $conn->query($query_sql);
-			
+
 	$rows = $result->num_rows;
 	if($rows > 0) {
 		while($row = $result->fetch_assoc()) {
-			
+
 		?>
 			<div id="orders" class="col col-xs-12 col-sm-11 well">
 				<div class="col-xs-3">
@@ -41,7 +41,7 @@ $query_sql="SELECT * FROM usernotification WHERE Email = '".$_SESSION['user']["e
 				</div>
 				<?php if($row["IDOrder"] != "") {?>
 				<a href="profile.php?orderN='<?php echo $row["IDOrder"]; ?>'">
-				
+
 					<div class="col-xs-3">
 				<strong><?php echo $row["Title"]; ?></strong>
 				</div>
@@ -64,7 +64,7 @@ $query_sql="SELECT * FROM usernotification WHERE Email = '".$_SESSION['user']["e
 	}
 
 ?>
-	  
+
   </div>
 
 

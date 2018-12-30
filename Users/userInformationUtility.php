@@ -28,7 +28,7 @@ function updateEmail($email, $emailN) {
 
 function updatePassword($email, $pO, $pN, $pNr) {
 	if($pN == $pNr) {
-		
+
 		$conn =connect();
 		$sql = "SELECT Password from Users WHERE Email = '".$email."'";
 		$result = $conn->query($sql);
@@ -41,7 +41,7 @@ function updatePassword($email, $pO, $pN, $pNr) {
 				} else {
 					return 1;
 				}
-				
+
 			}
 		}
 	}
@@ -51,14 +51,14 @@ function updatePassword($email, $pO, $pN, $pNr) {
 function saveUserPhoto($email, $file) {
 	$conn =connect();
 	$target = savePhoto($file);
-	$sql = "UPDATE users SET Photo = '".$target."' WHERE Email = '".$email."'";
+	$sql = "UPDATE Users SET Photo = '".$target."' WHERE Email = '".$email."'";
 	$conn->query($sql);
 }
 
 function getUserPhoto($email) {
 	$conn =connect();
 	$target = savePhoto($file);
-	$sql = "SELECT Photo FROM users WHERE Email = '".$email."'";
+	$sql = "SELECT Photo FROM Users WHERE Email = '".$email."'";
 	$result = $conn->query($sql);
 	if($result->num_rows > 0)	{
 		while($row = $result->fetch_assoc()) {

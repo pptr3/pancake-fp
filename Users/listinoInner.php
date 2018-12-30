@@ -17,7 +17,7 @@ require_once 'imagesFunctions.php';
     <link rel="stylesheet" type="text/css" title="stylesheet" href="listinoChangeStyle.css">
   <link rel="stylesheet" type="text/css" title="stylesheet" href="style.css">
   <link rel="stylesheet" type="text/css" title="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-  
+
 </head>
 
 <body>
@@ -26,7 +26,7 @@ require_once 'imagesFunctions.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require_once 'cart.php'; 
+require_once 'cart.php';
 $conn =connect();
 	if (isset($_GET["showCat"])) {
 		$category = $_GET["showCat"];
@@ -53,12 +53,12 @@ $result = getUnderCategoryItems($category);
 				}
 				?>
 </select>
-	<?php	
-	
+	<?php
+
 	if(isset($_GET["underC"]) && $_GET["underC"]>=0) {
-		$sql = "SELECT * from item WHERE Deleted=0 AND CategoryID =".$_SESSIONS["cat"]." AND UnderCategoryID = ".$_GET["underC"];
+		$sql = "SELECT * from Item WHERE Deleted=0 AND CategoryID =".$_SESSIONS["cat"]." AND UnderCategoryID = ".$_GET["underC"];
 	} else {
-		$sql = "SELECT * from item WHERE Deleted=0 AND CategoryID =".$_SESSIONS["cat"];
+		$sql = "SELECT * from Item WHERE Deleted=0 AND CategoryID =".$_SESSIONS["cat"];
 	}
 	$result = $conn->query($sql);
 	if($result->num_rows > 0) {
@@ -67,7 +67,7 @@ $result = getUnderCategoryItems($category);
 			<div id="innerCont" class="col-xs-12 col-sm-6 col-lg-4 ">
 			<p id="prz"><?php echo $row["Price"]; ?></p>
 				<form action="" method="post">
-					<div id="itmListino" class="col-xs-12">	
+					<div id="itmListino" class="col-xs-12">
 					<button class="btnWithout" name="item" id="<?php echo $row["Name"];?>" type="button" onclick="AddToCart(this,'<?php echo $row["IDItem"]; ?>','<?php echo $row["Name"]; ?>','<?php echo $row["Price"]; ?>','1')">
 						<img class="frame" alt="<?php echo $row["Name"];?>" id="idImg<?php echo $row["IDItem"]; ?>" height="60" src="<?php echo htmlspecialchars($row["Photo"]) ?>"/>
 						<p><?php echo $row["Name"]; ?></p>
@@ -76,12 +76,12 @@ $result = getUnderCategoryItems($category);
 					<div id="infListino" class="col-xs-12">
 						<button class="btnWithout" id="<?php echo $row["Name"]; ?>" type="button" onclick="popup('<?php echo $row["Name"]; ?>', '<?php echo $row["CategoryID"]; ?>')">
 							View information
-						</button>	
+						</button>
 					</div>
 
 				</form>
 			</div>
-							
+
 					<?php
 		}
 	}

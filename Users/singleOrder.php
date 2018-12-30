@@ -23,11 +23,11 @@ $result = getAllOrdersGivenId($_SESSION['user']["email"], $_GET["idOrd"]);
 if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 ?>
- 
+
 	<div id="bodyContent">
-		<h2>Order:</h2>		
+		<h2>Order:</h2>
 			<div class="row shop-tracking-status">
-    
+
     <div  id="shadow"  class="col-xs-12">
 
 
@@ -60,10 +60,10 @@ if($result->num_rows > 0) {
     </div>
 
 </div>
-	
-		
-		
-		
+
+
+
+
 		<div id="orderInfos" class="col-xs-12 col-sm-6">
 			<p>Date:</p>
 		</div>
@@ -86,7 +86,7 @@ if($result->num_rows > 0) {
 				$card =$row["CardNumber"];
 				$text = "card ending with: ".substr($card,12);
 			}
-			
+
 			?>
 			<div id="orderInfos" class="col-xs-12 col-sm-6">
 			<p><?php echo $text; ?></p>
@@ -98,7 +98,7 @@ if($result->num_rows > 0) {
 			if($row["IDDeliveryMode"]=="") {
 				$text2 = "In store";
 			} else {
-				$sql2 = "SELECT * FROM deliverymode WHERE IDDeliveryMode=".$row["IDDeliveryMode"];	
+				$sql2 = "SELECT * FROM DeliveryMode WHERE IDDeliveryMode=".$row["IDDeliveryMode"];	
 				$result2 = $conn->query($sql2);
 				if($result2->num_rows > 0) {
 							while($row2 = $result2->fetch_assoc()) {

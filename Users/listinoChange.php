@@ -67,13 +67,13 @@ require_once 'cart.php';
 	}
 
 
-if(!empty($_SESSION["cart"])) {	
+if(!empty($_SESSION["cart"])) {
 
 	if(isset($_GET['inc'])) {
 		if(isset($_GET['royals'])) {
 
 			$conn =connect();
-			$sql2 = "SELECT * from royalpancake WHERE IDRoyalPancake = ".$_GET['itemChange'];
+			$sql2 = "SELECT * from RoyalPancake WHERE IDRoyalPancake = ".$_GET['itemChange'];
 			$result2 = $conn->query($sql2);
 			if($result2->num_rows > 0) {
 				while($row2 = $result2->fetch_assoc()) {
@@ -87,7 +87,7 @@ if(!empty($_SESSION["cart"])) {
 		} else {
 
 			$conn =connect();
-			$sql2 = "SELECT * from item WHERE IDItem = ".$_GET['itemChange'];
+			$sql2 = "SELECT * from Item WHERE IDItem = ".$_GET['itemChange'];
 			$result2 = $conn->query($sql2);
 			if($result2->num_rows > 0) {
 				while($row2 = $result2->fetch_assoc()) {
@@ -99,10 +99,10 @@ if(!empty($_SESSION["cart"])) {
 				}
 			}
 		}
-		
+
 				$u = unserialize($_SESSION["cart"]);
 	}
-	
+
 }
 updateOrderTotalPrice($email);
 ?>
@@ -120,12 +120,12 @@ updateOrderTotalPrice($email);
 		?>
 			<div id="divIt">
 			<?php
-				$sql2 = "SELECT * from item WHERE IDItem = ".$row["IDItem"];
+				$sql2 = "SELECT * from Item WHERE IDItem = ".$row["IDItem"];
 				$result2 = $conn->query($sql2);
 				if($result2->num_rows > 0) {
 					while($row2 = $result2->fetch_assoc()) {
 					?>
-					
+
 							<div id="<?php echo $row2["Name"]; ?>" class="btn-group col-lg-4 col-sm-6 col-xs-12">
 									<div class="thumbnail">
 									<p id="przL"><?php echo $row2["Price"]; ?></p>
@@ -166,12 +166,12 @@ updateOrderTotalPrice($email);
 		?>
 			<div id="divRo">
 			<?php
-				$sql2r = "SELECT * from royalpancake WHERE IDRoyalPancake = ".$rowr["IDRoyalPancake"];
+				$sql2r = "SELECT * from RoyalPancake WHERE IDRoyalPancake = ".$rowr["IDRoyalPancake"];
 				$result2r = $conn->query($sql2r);
 				if($result2r->num_rows > 0) {
 					while($row2r = $result2r->fetch_assoc()) {
 ?>
-						
+
 							<div id="<?php echo $row2r["RoyalName"]; ?>" class="btn-group col-lg-4 col-sm-6 col-xs-12">
 									<div class="thumbnail">
 									<p  id="przL"><?php echo $rowr["Price"]?></p>
@@ -199,13 +199,13 @@ updateOrderTotalPrice($email);
 									  </div>
 									  <div class="collapse foodMoreDesc container-fluid" id="moreDesc<?php echo $row2r["IDRoyalPancake"];?><?php echo $rowr['Note'];?>">
 									  <div value="<?php echo $rowr["Note"];?>" class="row col-xs-12">
-									  
+
 								<?php
 
 		$result_ro = getItemInRoyal($row2r["IDRoyalPancake"]);
 
 		while($row_ro = $result_ro->fetch_assoc()) {
-			$sql_nro = "SELECT * FROM item WHERE IDItem = '".$row_ro["IDItem"]."'";
+			$sql_nro = "SELECT * FROM Item WHERE IDItem = '".$row_ro["IDItem"]."'";
 			$result_nro = $conn->query($sql_nro);
 			$row_nro = $result_nro->fetch_assoc();
 				echo "<div class='col col-xs-4'>";
@@ -214,11 +214,11 @@ updateOrderTotalPrice($email);
 				<button onclick="manage(<?php echo $row2r['IDRoyalPancake'];?>,this,<?php echo $row_nro['CategoryID'];?> )">
 				<?php
 				if($val == 0) {
-					echo '<img alt="" class="grey" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>'; 
+					echo '<img alt="" class="grey" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>';
 				} else {
-					echo '<img alt="" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>'; 
+					echo '<img alt="" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>';
 				}
-				
+
 				echo $row_nro["Name"];
 				?>
 				</button>
@@ -233,7 +233,7 @@ updateOrderTotalPrice($email);
                         </div>
 								</div>
 							</div>
-						
+
 <?php
 					}
 				}
@@ -242,7 +242,7 @@ updateOrderTotalPrice($email);
 		<?php
 		}
 	}
-	if(!empty($_SESSION["cart"])) {	
+	if(!empty($_SESSION["cart"])) {
 	$u = unserialize($_SESSION["cart"]);
 	foreach ($u->getArrayItem() as $item) {
 		?>
@@ -272,7 +272,7 @@ updateOrderTotalPrice($email);
 							</div>
 		<?php
 	}
-	
+
 	foreach ($u->getArrayRoyal() as $item) {
 		?>
 				<div id="id <?php echo $item->getName();?>" class="btn-group col-lg-4 col-sm-6 col-xs-12">
@@ -302,13 +302,13 @@ updateOrderTotalPrice($email);
 									  </div>
 									  									  <div class="collapse foodMoreDesc container-fluid" id="OffmoreDesc<?php echo $item->getItem();?><?php echo $item->getNote();?>">
 									  <div value="<?php echo $item->getNote();?>" class="row col-xs-12">
-									  
+
 								<?php
 
 		$result_ro = getItemInRoyal($item->getItem());
 
 		while($row_ro = $result_ro->fetch_assoc()) {
-			$sql_nro = "SELECT * FROM item WHERE IDItem = '".$row_ro["IDItem"]."'";
+			$sql_nro = "SELECT * FROM Item WHERE IDItem = '".$row_ro["IDItem"]."'";
 			$result_nro = $conn->query($sql_nro);
 			$row_nro = $result_nro->fetch_assoc();
 				echo "<div class='col col-xs-4'>";
@@ -317,11 +317,11 @@ updateOrderTotalPrice($email);
 				<button onclick='manage(<?php echo $item->getItem();?>, this, <?php echo $row_nro['CategoryID'];?>)'>
 				<?php
 				if($val == 0) {
-					echo '<img alt="" class="grey" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>'; 
+					echo '<img alt="" class="grey" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>';
 				} else {
-					echo '<img alt="" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>'; 
+					echo '<img alt="" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>';
 				}
-				
+
 				echo $row_nro["Name"];
 				echo "</button>";
 				echo "</div>";

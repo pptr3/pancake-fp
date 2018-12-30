@@ -17,7 +17,7 @@ require_once 'imagesFunctions.php';
     <link rel="stylesheet" type="text/css" title="stylesheet" href="listinoChangeStyle.css">
   <link rel="stylesheet" type="text/css" title="stylesheet" href="style.css">
   <link rel="stylesheet" type="text/css" title="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-  
+
 </head>
 
 <body>
@@ -48,7 +48,7 @@ if (isset($_GET["item"])) {
 									</div>
 									<div class="col-xs-12 col-sm-6" >
 										<h3>Description:</h3>
-										<?php 
+										<?php
 											echo $row3["Description"];
 										?>
 										<p id="pricePopP"><strong>Price:</strong> <?php
@@ -60,12 +60,12 @@ if (isset($_GET["item"])) {
 										$result_ro = getItemInRoyal($row3["IDRoyalPancake"]);
 
 		while($row_ro = $result_ro->fetch_assoc()) {
-			$sql_nro = "SELECT * FROM item WHERE IDItem = '".$row_ro["IDItem"]."'";
+			$sql_nro = "SELECT * FROM Item WHERE IDItem = '".$row_ro["IDItem"]."'";
 			$result_nro = $conn3->query($sql_nro);
 			$row_nro = $result_nro->fetch_assoc();
 				echo "<div class='col-xs-4'>";
 				echo "<div class='col col-xs-12'>";
-				echo '<img alt="" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>'; 
+				echo '<img alt="" height="60" src="' . htmlspecialchars($row_nro["Photo"]) . '"/>';
 				echo "</div>";
 				echo "<div class='col col-xs-12'>";
 				echo $row_nro["Name"];
