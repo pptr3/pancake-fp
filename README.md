@@ -1,5 +1,5 @@
 # PancakeFP
-Website for the order of pancakes.
+Website for booking pancakes -> [http://pancakepf.altervista.org/Users/home.php]()
 
 ### Import procedure
 
@@ -12,9 +12,4 @@ Website for the order of pancakes.
  * Move the project folder (presumably `pancake-fp`) in htdocs folder (that in Linux system is located by default in `/opt/lampp/htdocs`, on MacOS system in  
 `/Applications/XAMPP/htdocs` and on Windows system in `C:\Program Files\xampp\htdocs`.
 * Then finally copy and paste in your url bar `localhost/phpmyadmin/pancake-fp/Users/home.php`.
-
-### Contributions
- 
- * If you want to contibute, you're welcome. There's a lot of work to do, particulary for eliminate duplicate code. So if you want to train and improve yourself on doing that (adding some design pattern 
-for example), this is project is a great gym!
 
