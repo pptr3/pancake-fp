@@ -68,7 +68,7 @@ if ($conn->connect_error) {
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <select onchange="Filter()" lass="selectpicker" name="categoryitem" id="categoryitem">
           <?php
-          $query_sql="SELECT * FROM categoryroyalpancakes";
+          $query_sql="SELECT * FROM CategoryRoyalPancakes";
           $result = $conn->query($query_sql);
           if ($result->num_rows > 0) {
             echo '<option>Select the category!</option>';
@@ -84,7 +84,7 @@ if ($conn->connect_error) {
 
 <?php
 $idFil = $_GET['fil'];
-$query_sql="SELECT * FROM royalpancake WHERE CategoryID=$idFil AND Deleted = 0";
+$query_sql="SELECT * FROM RoyalPancake WHERE CategoryID=$idFil AND Deleted = 0";
 $royal = $conn->query($query_sql);
 if ($royal->num_rows > 0) {
   while($row = $royal->fetch_assoc()) {
@@ -109,7 +109,7 @@ if ($royal->num_rows > 0) {
 
 function calculatePrice($idRP) {
 
-  $query_sql="SELECT * FROM iteminroyalpancake i, item it WHERE i.IDItem = it.IDItem AND i.IDRoyalPancake = '$idRP'";
+  $query_sql="SELECT * FROM ItemInRoyalPancake i, Item it WHERE i.IDItem = it.IDItem AND i.IDRoyalPancake = '$idRP'";
   $ite = $GLOBALS['conn']->query($query_sql);
   $priceRP = 0;
   if ($ite->num_rows > 0) {

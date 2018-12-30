@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $fil = $_GET['fil'];
-$query_sql="SELECT * FROM `categoryitem` WHERE CategoryName='$fil'";
+$query_sql="SELECT * FROM `CategoryItem` WHERE CategoryName='$fil'";
 $items = $conn->query($query_sql);
 $row = $items->fetch_assoc();
 $idCategory = $row['CategoryID'];

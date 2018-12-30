@@ -66,7 +66,7 @@ if ($conn->connect_error) {
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <select onchange="Filter()" lass="selectpicker" name="categoryitem" id="categoryitem">
           <?php
-          $query_sql="SELECT * FROM categoryitem";
+          $query_sql="SELECT * FROM CategoryItem";
           $result = $conn->query($query_sql);
           if ($result->num_rows > 0) {
             echo '<option>Select the category!</option>';
@@ -85,7 +85,7 @@ if ($conn->connect_error) {
     <br/>
 <?php
 $idFil = $_GET['fil'];
-$query_sql="SELECT * FROM item WHERE CategoryID=$idFil AND Deleted = 0";
+$query_sql="SELECT * FROM Item WHERE CategoryID=$idFil AND Deleted = 0";
 $items = $conn->query($query_sql);
 if ($items->num_rows > 0) {
   while($row = $items->fetch_assoc()) {

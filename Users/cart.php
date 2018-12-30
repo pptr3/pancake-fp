@@ -426,7 +426,7 @@ class ShoppingCart {
 		if($result->num_rows > 0)	{
 			while($row = $result->fetch_assoc()) {
 				$idOrder = $row["IDOrder"];
-				$sql2 = "SELECT * FROM Iteminorder WHERE IDOrder = ".$idOrder;
+				$sql2 = "SELECT * FROM ItemInOrder WHERE IDOrder = ".$idOrder;
 				$result2 = $conn->query($sql2);
 				return $result2;
 			}

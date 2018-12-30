@@ -120,7 +120,7 @@ if ($conn->connect_error) {
         <h3>Category</h3>
         <select class="selectpicker" name="categoryRP" id="categoryRP">
             <?php
-            $query_sql="SELECT * FROM categoryroyalpancakes";
+            $query_sql="SELECT * FROM CategoryRoyalPancakes";
             $result = $conn->query($query_sql);
             if ($result->num_rows > 0) {
 

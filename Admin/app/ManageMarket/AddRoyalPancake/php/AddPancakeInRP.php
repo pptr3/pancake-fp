@@ -59,7 +59,7 @@ if ($conn->connect_error) {
     <br/>
     <br/>
 <?php
-$query_sql="SELECT * FROM item WHERE CategoryID=1";
+$query_sql="SELECT * FROM Item WHERE CategoryID=1 AND Deleted=0";
 $items = $conn->query($query_sql);
 if ($items->num_rows > 0) {
   while($row = $items->fetch_assoc()) {

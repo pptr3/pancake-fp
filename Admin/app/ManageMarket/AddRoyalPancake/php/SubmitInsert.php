@@ -30,7 +30,7 @@ $underCategory = $row['UnderCategoryID'];
 
 
 // prepare and bind
-$stmt = $conn->prepare("INSERT INTO `item` (`CategoryID`, `Deleted`, `Description`, `Name`,  `Photo`, `Price`, `UnderCategoryID`) VALUES(?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO `Item` (`CategoryID`, `Deleted`, `Description`, `Name`,  `Photo`, `Price`, `UnderCategoryID`) VALUES(?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("sssssss", $mainCategory, $Deleted, $Description, $Name, $Photo, $Price, $underCategory);
 if(!isset($_POST["name"]) || !isset($_POST["description"]) || !isset($_POST["price"])) {
   die("Fill all the fields.");

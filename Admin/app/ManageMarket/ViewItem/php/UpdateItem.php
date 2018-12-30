@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 $del = $_GET["del"];
-$sql = "UPDATE item SET Deleted ='1' WHERE IDItem='$del'";
+$sql = "UPDATE Item SET Deleted ='1' WHERE IDItem='$del'";
 
 if ($conn->query($sql) === TRUE) {
     echo "Record updated successfully";

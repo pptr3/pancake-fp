@@ -18,13 +18,13 @@ if ($conn->connect_error) {
 }
 
 $categoryRP = $_POST['categoryRP'];
-$query_sql="SELECT CategoryID FROM `categoryroyalpancakes` WHERE CategoryName='$categoryRP'";
+$query_sql="SELECT CategoryID FROM `CategoryRoyalPancakes` WHERE CategoryName='$categoryRP'";
 $result = $conn->query($query_sql);
 $row = $result->fetch_assoc();
 $mainCategory = $row['CategoryID'];
 
 // prepare and bind for RP insert
-$stmt = $conn->prepare("INSERT INTO `royalpancake` (`CategoryID`, `Deleted`, `Description`, `Photo`, `RoyalName`) VALUES(?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO `RoyalPancake` (`CategoryID`, `Deleted`, `Description`, `Photo`, `RoyalName`) VALUES(?, ?, ?, ?, ?)");
 $stmt->bind_param("sssss", $mainCategory, $Deleted, $Description, $Photo, $RoyalName);
 if(!isset($_POST["name"]) || !isset($_POST["description"])) {
   die("Fill all the fields.");

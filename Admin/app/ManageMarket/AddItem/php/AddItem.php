@@ -103,7 +103,7 @@ if ($conn->connect_error) {
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <select onchange="CheckIfPancake()" lass="selectpicker" name="categoryitem" id="categoryitem">
             <?php
-            $query_sql="SELECT * FROM categoryitem";
+            $query_sql="SELECT * FROM CategoryItem";
             $result = $conn->query($query_sql);
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
@@ -119,7 +119,7 @@ if ($conn->connect_error) {
       <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <select class="selectpicker" name="undercategoryitem" id="undercategoryitem">
             <?php
-            $query_sql="SELECT * FROM undercategoryitem";
+            $query_sql="SELECT * FROM UnderCategoryItem";
             $result = $conn->query($query_sql);
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
@@ -142,7 +142,7 @@ if ($conn->connect_error) {
       <h3>Choose seasonings</h3>
       <div class="form-check">
         <?php
-        $query_sql="SELECT * FROM seasoning";
+        $query_sql="SELECT * FROM Seasoning";
         $result = $conn->query($query_sql);
         if ($result->num_rows > 0) {
 
