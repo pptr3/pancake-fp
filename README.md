@@ -1,6 +1,5 @@
 # PancakeFP
-Website for booking pancakes -> [http://pancakepf.altervista.org/Users/home.php]()
-
+Website for booking pancakes -> http://pancakepf.altervista.org/Users/home.php
 ### Import procedure
 
  * Make sure to have Git installed on your system and then just clone the repository by typing: 
