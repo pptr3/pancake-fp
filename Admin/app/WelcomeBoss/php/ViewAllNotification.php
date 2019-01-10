@@ -59,7 +59,7 @@ if(!isset($_SESSION['admin']["email"])) {
   <div>
   	<?php
 
-  			$query_sql="SELECT * FROM adminnotification";
+  			$query_sql="SELECT * FROM AdminNotification";
   			$result = $conn->query($query_sql);
   			if($result !== false){
   			?>

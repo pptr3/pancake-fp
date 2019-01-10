@@ -32,10 +32,10 @@ if(!isset($_SESSION['admin']["email"])) {
 <body>
 <?php
 $id = $_GET["id"];
-$query_sql="SELECT * FROM orders o, iteminorder io, item i WHERE o.IDOrder=io.IDOrder AND io.IDItem=i.IDItem AND io.Email=o.Email AND o.IDOrder='$id'";
+$query_sql="SELECT * FROM Orders o, ItemInOrder io, Item i WHERE o.IDOrder=io.IDOrder AND io.IDItem=i.IDItem AND io.Email=o.Email AND o.IDOrder='$id'";
 $items = $conn->query($query_sql);
 
-$query_sql2="SELECT * FROM orders o, orderroyalpancake orp , royalpancake r WHERE o.IDOrder=orp.IDOrder AND orp.IDRoyalPancake=r.IDRoyalPancake AND orp.Email=o.Email AND o.IDOrder='$id'";
+$query_sql2="SELECT * FROM Orders o, OrderRoyalPancake orp , RoyalPancake r WHERE o.IDOrder=orp.IDOrder AND orp.IDRoyalPancake=r.IDRoyalPancake AND orp.Email=o.Email AND o.IDOrder='$id'";
 $RPancakes = $conn->query($query_sql2);
 
  ?>
@@ -68,9 +68,9 @@ $RPancakes = $conn->query($query_sql2);
   	<?php
       $rowCheck = $items->fetch_assoc();
       if(strlen($rowCheck['IDDeliveryMode']) <= 0) {
-        $query_sql="SELECT * FROM orders WHERE IDOrder='$id'";
+        $query_sql="SELECT * FROM Orders WHERE IDOrder='$id'";
       } else {
-        $query_sql="SELECT * FROM orders o, deliverymode d WHERE IDOrder='$id' AND o.IDDeliveryMode=d.IDDeliveryMode";
+        $query_sql="SELECT * FROM Orders o, DeliveryMode d WHERE IDOrder='$id' AND o.IDDeliveryMode=d.IDDeliveryMode";
       }
   			$result = $conn->query($query_sql);
   			if($result !== false){

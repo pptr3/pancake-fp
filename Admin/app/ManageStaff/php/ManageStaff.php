@@ -11,7 +11,7 @@ if(!isset($_SESSION['admin']["email"])) {
   $conn = new mysqli($servername, $username, $password, $database);
 
 
-  $sql = "SELECT * FROM deliveryman WHERE Deleted = 0";
+  $sql = "SELECT * FROM DeliveryMan WHERE Deleted = 0";
   $result = $conn->query($sql);
 ?>
 

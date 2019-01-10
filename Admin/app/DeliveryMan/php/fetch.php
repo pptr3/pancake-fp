@@ -14,10 +14,10 @@ if(isset($_POST["view"]))
   $conn = new mysqli($servername, $username, $password, $database);
  if($_POST["view"] != '')
  {
-  $update_query = "UPDATE deliverymannotification SET Status=1 WHERE Status=0 AND Email ='$mail2'";
+  $update_query = "UPDATE DeliveryManNotification SET Status=1 WHERE Status=0 AND Email ='$mail2'";
   mysqli_query($conn, $update_query);
  }
- $query = "SELECT * FROM deliverymannotification WHERE Email ='$mail2' ORDER BY IDDeliveryManNotification DESC LIMIT 5";
+ $query = "SELECT * FROM DeliveryManNotification WHERE Email ='$mail2' ORDER BY IDDeliveryManNotification DESC LIMIT 5";
  $result = mysqli_query($conn, $query);
  $output = '';
 

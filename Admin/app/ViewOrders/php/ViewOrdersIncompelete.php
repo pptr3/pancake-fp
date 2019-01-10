@@ -62,7 +62,7 @@ if(!isset($_SESSION['admin']["email"])) {
   	<?php
         $status = $_GET['st'];
   		//	$query_sql="SELECT * FROM orders o, deliverymode d  WHERE o.IDDeliveryMode=d.IDDeliveryMode AND Status='$status' AND ((Address IS NOT NULL AND CAP IS NOT NULL) OR (Latitude IS NOT NULL AND Longitude IS NOT NULL)) ";
-      $query_sql="SELECT * FROM orders o WHERE Status='$status' AND IDDeliveryMode IS NOT NULL";
+      $query_sql="SELECT * FROM Orders o WHERE Status='$status' AND IDDeliveryMode IS NOT NULL";
 
         $result = $conn->query($query_sql);
   			if($result !== false){

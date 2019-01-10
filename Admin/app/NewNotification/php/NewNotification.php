@@ -13,10 +13,10 @@ $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$query_sql="SELECT * FROM users";
+$query_sql="SELECT * FROM Users";
 $result = $conn->query($query_sql);
 while($row = $result->fetch_assoc()) {
-  $stmt = $conn->prepare("INSERT INTO `usernotification` (`Description`, `Email`, `Title`) VALUES (?, ?, ?)");
+  $stmt = $conn->prepare("INSERT INTO `UserNotification` (`Description`, `Email`, `Title`) VALUES (?, ?, ?)");
   $stmt->bind_param("sss", $Description, $Email, $Title);
   if(!isset($_POST["description"]) || !isset($_POST["title"])) {
     die("Fill all the fields.");

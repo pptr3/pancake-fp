@@ -5,7 +5,7 @@ if(!isset($_SESSION['admin']["email"])) {
   header("location: ../../../../Users/login.php");
 }
 $idOrder = $_GET['id'];
-$sql = "SELECT * FROM orders WHERE IDOrder='$idOrder'";
+$sql = "SELECT * FROM Orders WHERE IDOrder='$idOrder'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 

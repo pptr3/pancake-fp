@@ -11,10 +11,10 @@ if(isset($_POST["view"]) && isset($_SESSION['user']))
 
  if($_POST["view"] != '')
  {
-  $update_query = "UPDATE usernotification SET Status=1 WHERE Status=0 AND Email ='".$_SESSION['user']["email"]."'";
+  $update_query = "UPDATE UserNotification SET Status=1 WHERE Status=0 AND Email ='".$_SESSION['user']["email"]."'";
  $conn->query($update_query);
  }
- $query = "SELECT * FROM usernotification  WHERE Email ='".$_SESSION['user']["email"]."' ORDER BY IDUserNotification DESC LIMIT 5";
+ $query = "SELECT * FROM UserNotification  WHERE Email ='".$_SESSION['user']["email"]."' ORDER BY IDUserNotification DESC LIMIT 5";
  $result = $conn->query($query);
  $output = '';
 
@@ -71,7 +71,7 @@ if(isset($_POST["view"]) && isset($_SESSION['user']))
 
 
 
- $query_1 = "SELECT * FROM usernotification WHERE Status=0 AND Email ='".$_SESSION['user']["email"]."'";
+ $query_1 = "SELECT * FROM UserNotification WHERE Status=0 AND Email ='".$_SESSION['user']["email"]."'";
  $result_1 = $conn->query($query_1);
  $count = mysqli_num_rows($result_1);
  if ($count > 0) {

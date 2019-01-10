@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 $del = $_GET["del"];
-$sql = "UPDATE deliveryman SET Deleted ='1' WHERE Email='$del'";
+$sql = "UPDATE DeliveryMan SET Deleted ='1' WHERE Email='$del'";
 
 if ($conn->query($sql) === TRUE) {
     echo "Record updated successfully";

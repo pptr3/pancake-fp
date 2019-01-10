@@ -13,7 +13,7 @@ $database = "dbfp";
 $conn = new mysqli($servername, $username, $password, $database);
 
 $idNotification = $_GET['id'];
-$sql = "DELETE FROM deliverymannotification WHERE IDDeliveryManNotification='$idNotification' AND Email='$mail3'";
+$sql = "DELETE FROM DeliveryManNotification WHERE IDDeliveryManNotification='$idNotification' AND Email='$mail3'";
 
 if ($conn->query($sql) === TRUE) {
     echo "Record deleted successfully";

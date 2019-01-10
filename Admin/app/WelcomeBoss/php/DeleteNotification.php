@@ -6,7 +6,7 @@ if(!isset($_SESSION['admin']["email"])) {
 }
 // sql to delete a record
 $idNotification = $_GET['id'];
-$sql = "DELETE FROM adminnotification WHERE IDAdminNotification='$idNotification'";
+$sql = "DELETE FROM AdminNotification WHERE IDAdminNotification='$idNotification'";
 
 if ($conn->query($sql) === TRUE) {
     echo "Record deleted successfully";

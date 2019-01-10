@@ -62,9 +62,9 @@ if(!isset($_SESSION['admin']["email"])) {
   	<?php
         $status = $_GET['st'];
         if($status == -1) {
-  			   $query_sql="SELECT * FROM orders WHERE IDDeliveryMode IS NULL";
+  			   $query_sql="SELECT * FROM Orders WHERE IDDeliveryMode IS NULL";
         } else {
-          $query_sql="SELECT * FROM orders WHERE Status='$status'";
+          $query_sql="SELECT * FROM Orders WHERE Status='$status'";
         }
         $result = $conn->query($query_sql);
   			if($result !== false){

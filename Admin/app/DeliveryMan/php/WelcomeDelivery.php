@@ -11,7 +11,7 @@ if(!isset($_SESSION['delivery']["email"])) {
   $conn = new mysqli($servername, $username, $password, $database);
 
   $mail = $_SESSION['delivery']["email"];
-  $query_sql="SELECT * FROM deliveryman WHERE Email='$mail'";
+  $query_sql="SELECT * FROM DeliveryMan WHERE Email='$mail'";
   $result = $conn->query($query_sql);
   $credential = $result->fetch_assoc();
   $nameDelivery = $credential['Name'];
@@ -71,7 +71,7 @@ if(!isset($_SESSION['delivery']["email"])) {
   </div>
   <div>
   	<?php
-  			$query_sql="SELECT * FROM orders WHERE Status=2 AND DeliveryManEmail='$mail'";
+  			$query_sql="SELECT * FROM Orders WHERE Status=2 AND DeliveryManEmail='$mail'";
   			$result = $conn->query($query_sql);
   			if($result !== false){
   			?>
